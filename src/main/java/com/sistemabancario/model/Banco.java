@@ -1,5 +1,7 @@
 package com.sistemabancario.model;
 
+import java.util.Objects;
+
 /**
  * Representa uma instituição bancária com os seguintes requisitos:
  * 
@@ -64,6 +66,16 @@ public class Banco implements Cadastro {
     }
 
     public void setNumero(String numero) {
+        Objects.requireNonNull(numero, "Número não pode ser nulo.");
+
+        if(numero.trim().isEmpty()){
+            throw new IllegalArgumentException("Número não pode ser vazio.");
+        }
+
+        if(!numero.matches("\\d{3}")){
+            throw new IllegalArgumentException("Numero invalido. Deve estar no formato 333");
+        }
+
         this.numero = numero;
     }
 
