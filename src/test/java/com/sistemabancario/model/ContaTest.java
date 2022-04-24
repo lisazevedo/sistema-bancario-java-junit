@@ -25,11 +25,6 @@ public class ContaTest {
         final String obtido = instance.getNumero();
         assertNotEquals(invalido, obtido);
     }
-    @Test 
-    void testSetNotNumeroNull(){
-        final Conta instance = new Conta();
-        assertNotNull(instance.getNumero());
-    }
 
     /**
      * R02
