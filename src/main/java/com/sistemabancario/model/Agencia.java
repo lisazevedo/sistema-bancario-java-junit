@@ -1,5 +1,7 @@
 package com.sistemabancario.model;
 
+import java.util.Objects;
+
 /**
  * Representa uma agência bancária.
  * 
@@ -52,15 +54,22 @@ public class Agencia implements Cadastro {
      */
     private String numero;
 
+    public Agencia(Banco banco) {
+        this.banco = banco;
+    }
+
+    public Banco getBanco() {
+        return this.banco;
+    }
+
     @Override
     public long getId() {
-        // TODO: Você precisa implementar este método
-        return 0;
+        return id;
     }
 
     @Override
     public void setId(long id) {
-        // TODO: Você precisa implementar este método
+        this.id = id;
     }
 
     public String getNumero() {
@@ -74,6 +83,20 @@ public class Agencia implements Cadastro {
      * @param numero novo número da agência
      */
     public void setNumero(String numero) {
+        Objects.requireNonNull(numero, "Número não pode ser nulo.");
+
+        if(numero.trim().isEmpty()){
+            throw new IllegalArgumentException("Número não pode ser vazio.");
+        }
+
+        if(!numero.matches("\\d{4}-\\d")){
+            throw new IllegalArgumentException("Numero invalido. Deve estar no formato 0638-6");
+        }
+
+        if (!numero.endsWith(Util.calculaDigitoModulo11(numero))) {
+            throw new IllegalArgumentException("Dígito final inválido. Deve estar no formato 0638-6");
+        }
+
         this.numero = numero;
     }
 }
