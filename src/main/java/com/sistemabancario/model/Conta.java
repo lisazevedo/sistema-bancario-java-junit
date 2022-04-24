@@ -1,6 +1,7 @@
 package com.sistemabancario.model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Representa uma conta bancária de um determinado {@link Cliente}, tendo os
