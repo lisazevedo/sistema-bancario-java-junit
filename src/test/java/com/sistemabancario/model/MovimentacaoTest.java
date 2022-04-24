@@ -63,4 +63,84 @@ class MovimentacaoTest {
         assertThrows(IllegalArgumentException.class, () -> instance.setDescricao(espacosEmBranco));
     }
 
+    /**
+     * Verificar se o valor passado para o tipo está realmente sendo setado
+     */
+    @Test
+    void tetGetTipo() {
+        final Movimentacao instance = new Movimentacao(new Conta());
+        final char esperado = 'C';
+        instance.setTipo(esperado);
+        final long obtido = instance.getTipo();
+        assertEquals(esperado, obtido);
+    }
+
+    /**
+     * R01 - Verifica se ocorre erro ao tentar inserir um valor nulo em tipo
+     */
+    @Test
+    void testR01SetTipoVazio() {
+        final Movimentacao instance = new Movimentacao(new Conta());
+        final char valorErrado = ' ';
+        assertThrows(IllegalArgumentException.class, () -> instance.setTipo(valorErrado));
+    }
+    /**
+     * R01 - Verifica se ocorre erro ao tentar inserir um valor diferente de 'C' ou 'D' para tipo
+     * Tipo da movimentação deve ser 'C' para crédito (entrada de dinheiro)
+     * ou 'D' para débito (saída de dinheiro) 
+     */
+    @Test
+    void testR01SetTipo() {
+        final Movimentacao instance = new Movimentacao(new Conta());
+        final char valorErrado = 'A';
+        assertThrows(IllegalArgumentException.class, () -> instance.setTipo(valorErrado));
+    }
+
+    /**
+     * Testa se o valor foi realmente setado 
+     */
+    @Test
+    void testValor() {
+        final Movimentacao instance = new Movimentacao(new Conta());
+        final double valorEsperado = 1000;
+        instance.setValor(valorEsperado);
+        assertEquals(valorEsperado, instance.getValor());
+    }
+
+    /**
+     * R02 - O valor não deve ser negativo, uma vez que existe o atributo {@link #tipo} 
+     */
+    @Test
+    void testR02SetValorNegativo() {
+        final Movimentacao instance = new Movimentacao(new Conta());
+        final char tipo = 'C';
+        final double valorNegativo = -4.5;
+        instance.setTipo(tipo);
+        assertThrows(IllegalArgumentException.class, () -> instance.setValor(valorNegativo));
+    }
+
+    /**
+     * R03 - Se o tipo for débito, o valor da movimentação não pode ser superior ao saldo total da {@link Conta}
+     */
+    @Test
+    void testR03SetValorNoDebito() {
+        final Conta conta = new Conta();    
+        final double valorDeposito = 300;
+        conta.depositoDinheiro(valorDeposito);
+
+        final Movimentacao instance = new Movimentacao(conta);
+        instance.setTipo('D');
+
+        final double valorMovimentacao = 400;
+        assertThrows(IllegalArgumentException.class, () -> instance.setValor(valorMovimentacao));
+    }
+
+    /**
+     * R04 - Todas as Movimentações devem ser instanciadas como "confirmadas" por padrão
+     */
+    @Test
+    void testR04SetValorConfirmadaPadrao() {
+        final Movimentacao instance = new Movimentacao(new Conta());
+        assertEquals(true, instance.isConfirmada());
+    }
 }

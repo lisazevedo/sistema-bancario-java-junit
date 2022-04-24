@@ -101,9 +101,8 @@ public class Conta implements Cadastro {
      * @return
      */
     public double getSaldoTotal() {
-        /* TODO: Você precisa implementar este método. 
-        A linha abaixo deve ser substituída pelo seu código */
-        return 0.0;
+        if (especial) return limite + saldo;
+        return saldo;
     }
 
     /**
@@ -136,7 +135,11 @@ public class Conta implements Cadastro {
      * @param valor valor a ser depositado (deve ser um valor positivo)
      */
     public void depositoDinheiro(final double valor) {
-        // TODO: Você precisa implementar este método
+        if(valor <= 0) {
+            throw new IllegalArgumentException("O valor de depósito deve ser positivo.");
+        }
+
+        this.saldo += valor;
     }
 
     /**

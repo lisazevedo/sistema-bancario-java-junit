@@ -66,7 +66,8 @@ public class Movimentacao implements Cadastro {
      * @param conta a {@link Conta} para vincular a movimentação.
      */
     public Movimentacao(Conta conta){
-        // TODO: Você precisa implementar este método
+        this.conta = conta;
+        this.confirmada = true;
     }
 
     @Override
@@ -84,6 +85,12 @@ public class Movimentacao implements Cadastro {
     }
 
     public void setTipo(char tipo){
+        Objects.requireNonNull(tipo, "Tipo não pode ser nulo");
+
+        if (tipo != 'C' && tipo != 'D') {
+            throw new IllegalArgumentException("Tipo só pode ter os valores 'C' (crédito) ou 'D' (débito).");
+        }
+
         this.tipo = tipo;
     }
 
@@ -97,6 +104,7 @@ public class Movimentacao implements Cadastro {
         if(descricao.trim().isEmpty()){
             throw new IllegalArgumentException("Descrição não pode ser vazia.");
         }
+
         this.descricao = descricao;
     }
 
@@ -105,6 +113,14 @@ public class Movimentacao implements Cadastro {
     }
 
     public void setValor(double valor) {
+        if (!Objects.isNull(tipo) && valor < 0) {
+            throw new IllegalArgumentException("Valor não pode ser negativo.");
+        }
+        
+        if (!Objects.isNull(conta) && !Objects.isNull(tipo) && tipo == 'D' && valor > conta.getSaldoTotal()) {
+            throw new IllegalArgumentException("Valor não pode ser maior que o saldo total no débito.");
+        }
+
         this.valor = valor;
     }
 
