@@ -35,13 +35,12 @@ public class Banco implements Cadastro {
 
     @Override
     public long getId() {
-        // TODO: Você precisa implementar este método
-        return 0;
+        return id;
     }
 
     @Override
     public void setId(long id) {
-        // TODO: Você precisa implementar este método
+        this.id = id;
     }
 
     public String getNome() {

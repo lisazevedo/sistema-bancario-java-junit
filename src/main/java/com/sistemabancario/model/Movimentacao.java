@@ -70,6 +70,11 @@ public class Movimentacao implements Cadastro {
         this.confirmada = true;
     }
 
+    public Movimentacao(Conta conta, boolean confirmada){
+        this.conta = conta;
+        this.confirmada = confirmada;
+    }
+
     @Override
     public long getId() {
         return id;

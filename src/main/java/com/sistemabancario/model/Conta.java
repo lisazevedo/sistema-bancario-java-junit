@@ -63,12 +63,12 @@ public class Conta implements Cadastro {
      */
     private List<Movimentacao> movimentacoes = new ArrayList<>();
 
-    public Conta() {
-        // TODO: Você precisa implementar este método
-    }
+    public Conta() {}
 
     public Conta(Agencia agencia, boolean especial, final double limite) {
-        // TODO: Você precisa implementar este método
+        // Pra que serve agencia dentro deste construtor?
+        this.especial = especial;
+        this.limite = limite;
     }
 
     /**
@@ -129,7 +129,18 @@ public class Conta implements Cadastro {
      * @param valor valor a ser sacado (deve ser um valor positivo)
      */
     public void saque(final double valor) {
-        // TODO: Você precisa implementar este método
+        if(valor <= 0) {
+            throw new IllegalArgumentException("Valor para saque deve ser maior que zero!");
+        }
+        if (saldo < valor) {
+            throw new IllegalArgumentException("Saldo em conta é menor que valor para saque!");
+        }
+
+        Movimentacao movimentacao = new Movimentacao(this, true);
+        movimentacao.setTipo('D');
+        movimentacao.setValor(valor);
+        this.saldo -= valor;
+        movimentacoes.add(movimentacao);
     }
 
     /**
@@ -145,8 +156,7 @@ public class Conta implements Cadastro {
             throw new IllegalArgumentException("O valor de depósito deve ser positivo.");
         }
 
-        Movimentacao movimentacao = new Movimentacao(this);
-        movimentacao.setConfirmada(true);
+        Movimentacao movimentacao = new Movimentacao(this, true);
         movimentacao.setTipo('C');
         movimentacao.setValor(valor);
         this.saldo += valor;
@@ -160,7 +170,13 @@ public class Conta implements Cadastro {
      * @param valor valor a ser depositado (deve ser um valor positivo)
      */
     public void depositoCheque(final double valor) {
-        // TODO: Você precisa implementar este método
+        if(valor <= 0) {
+            throw new IllegalArgumentException("O valor de depósito deve ser positivo.");
+        }
+
+        Movimentacao movimentacao = new Movimentacao(this, false);
+        movimentacao.setTipo('D');
+        movimentacoes.add(movimentacao);
     }
 
     @Override
