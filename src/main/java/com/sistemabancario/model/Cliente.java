@@ -1,5 +1,7 @@
 package com.sistemabancario.model;
 
+import java.util.Objects;
+
 /**
  * Cliente do banco tendo os seguintes requisitos:
  * 
@@ -58,13 +60,12 @@ public class Cliente implements Cadastro {
 
     @Override
     public long getId() {
-        // TODO: Você precisa implementar este método
-        return 0;
+        return id;
     }
 
     @Override
     public void setId(long id) {
-        // TODO: Você precisa implementar este método
+        this.id = id;
     }
 
     public String getCpf() {
@@ -72,6 +73,24 @@ public class Cliente implements Cadastro {
     }
 
     public void setCpf(String cpf) {
+        Objects.requireNonNull(cpf, "Cpf não pode ser nulo.");
+
+        if(cpf.trim().isEmpty()) {
+            throw new IllegalArgumentException("Cpf não pode ser vazio.");
+        }
+
+        if(!cpf.matches("\\d{11}")) {
+            throw new IllegalArgumentException("CPF inválido - Quantidade de caracteres");
+        }
+
+        if(cpf.matches("^([0-9])\\1*$")) {
+            throw new IllegalArgumentException("CPF inválido - Números repetidos");
+        }
+
+        if (!isCpfValido(cpf)) {
+            throw new IllegalArgumentException("CPF inválido");
+        }
+
         this.cpf = cpf;
     }
 
@@ -130,6 +149,16 @@ public class Cliente implements Cadastro {
     }
 
     public void setNome(String nome) {
+        Objects.requireNonNull(nome, "Nome não pode ser nulo.");
+
+        if(nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
+        }
+
+        if(!nome.contains(" ")) {
+            throw new IllegalArgumentException("Nome deve conter no mínimo um sobrenome");
+        }
+
         this.nome = nome;
     }
 
