@@ -143,7 +143,7 @@ public class ContaTest {
 
     @Test
     void saqueDinheiroMovimentacaoAdicionada() {
-        final double deposito = 200, saque = 300;
+        final double deposito = 200;
         final Conta instance = new Conta();
         instance.depositoDinheiro(deposito);
         instance.depositoDinheiro(deposito);
