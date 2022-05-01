@@ -65,7 +65,7 @@ public class Conta implements Cadastro {
 
     public Conta() {}
 
-    public Conta(Agencia agencia, boolean especial, final double limite) {
+    public Conta(boolean especial, final double limite) {
         // Pra que serve agencia dentro deste construtor?
         this.especial = especial;
         this.limite = limite;
@@ -219,6 +219,14 @@ public class Conta implements Cadastro {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    public void setSaldo(double valor) {
+        if (valor < 0) {
+            throw new IllegalArgumentException("Numero invalido. Deve ser positivo");
+        }
+
+        this.saldo = valor;
     }
 
     public double getLimite() {

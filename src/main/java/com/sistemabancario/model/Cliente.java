@@ -58,6 +58,16 @@ public class Cliente implements Cadastro {
      */
     private String nome;
 
+    /**
+     * Senha do cliente
+     */
+    private String senha;
+
+    /**
+     * Conta vinculado do cliente
+     */
+    private Conta conta;
+
     @Override
     public long getId() {
         return id;
@@ -160,6 +170,28 @@ public class Cliente implements Cadastro {
         }
 
         this.nome = nome;
+    }
+
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        Objects.requireNonNull(senha, "Senha não pode ser nula.");
+
+        if(nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Senha não pode ser vazia.");
+        }
+
+        this.senha = senha;
+    }
+
+    public Conta getConta() {
+        return this.conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
     }
 
 }
