@@ -59,9 +59,15 @@ public class ColecaoContas {
         String numeroConta3 = "67842-3";
         conta3.setNumero(numeroConta3);
 
+        // Conta 4
+        Conta conta4 = new Conta(false, 500);
+        String numeroConta4 = "67332-3";
+        conta3.setNumero(numeroConta3);
+
         contasMap.put(numeroConta1, conta1);
         contasMap.put(numeroConta2, conta2);
         contasMap.put(numeroConta3, conta3);
+        contasMap.put(numeroConta4, conta4);
 
         return new ColecaoContas(contasMap);
     }

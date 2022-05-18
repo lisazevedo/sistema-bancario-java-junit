@@ -9,13 +9,6 @@ import com.sistemabancario.model.ColecaoContas;
 import com.sistemabancario.model.Conta;
 
 public class Main {
-    public static Boolean autentica(Cliente cliente, String cpf, String senha) {
-        if (!Objects.isNull(cliente) && senha.equals(cliente.getSenha())) {
-            return true;
-        }
-        return false;
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -35,7 +28,7 @@ public class Main {
         
         Cliente cliente = clientes.getCliente(cpf);
 
-        while (!autentica(cliente, cpf, senha)) {
+        while (!Cliente.autentica(cliente, cpf, senha)) {
             System.out.println("Acesso negado! Tente novamente!");
 
             System.out.print("CPF: ");

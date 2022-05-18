@@ -194,4 +194,19 @@ public class Cliente implements Cadastro {
         this.conta = conta;
     }
 
+    /**
+     * Testa se as informações de login do usuário estão corretas
+     * e autentica o usuário
+     * @param cliente
+     * @param cpf
+     * @param senha
+     * @return boolean
+     */
+    public static Boolean autentica(Cliente cliente, String cpf, String senha) {
+        if (!Objects.isNull(cliente) && senha.equals(cliente.getSenha())) {
+            return true;
+        }
+        return false;
+    }
+
 }
